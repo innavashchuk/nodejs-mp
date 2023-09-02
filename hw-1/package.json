@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-mp",
+  "version": "1.0.0",
+  "description": "Node.js mentoring program",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/innavashchuk/nodejs-mp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/innavashchuk/nodejs-mp/issues"
+  },
+  "homepage": "https://github.com/innavashchuk/nodejs-mp#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
