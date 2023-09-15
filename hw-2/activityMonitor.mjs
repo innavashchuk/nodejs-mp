@@ -27,7 +27,7 @@ function refresh() {
   const processInfo = runSystemCommand();
   process.stdout.write(`\r\x1b[K${processInfo}`); 
   appendToLogFile(processInfo);
-  setTimeout(refresh, 100); 
+  setTimeout(refresh, 60000);
 }
 
 fs.writeFileSync('activityMonitor.log', ''); 
