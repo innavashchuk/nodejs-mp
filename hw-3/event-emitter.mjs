@@ -55,6 +55,8 @@ class EventEmitter {
     }
 }
 
+export default EventEmitter;
+
 // Test your custom EventEmitter class
 const myEmitter = new EventEmitter();
 

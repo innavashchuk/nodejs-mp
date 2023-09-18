@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "task1": "nodemon event-emitter.mjs"
+    "task1": "nodemon event-emitter.mjs",
+    "task2": "nodemon with-time.mjs",
+    "task3": "nodemon task-3.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "csvtojson": "^2.0.10",
     "nodemon": "3.0.1"
   }
 }
