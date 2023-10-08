@@ -1,4 +1,4 @@
-import { ProductEntity } from "../product/product.entity";
+import { ProductEntity } from '../product/product.entity';
 
 export interface CartItemEntity {
   product: ProductEntity;

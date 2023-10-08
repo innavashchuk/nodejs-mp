@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-import Joi from "joi";
+import { NextFunction, Request, Response } from 'express';
+import Joi from 'joi';
 
 const itemsSchema = Joi.array()
   .required()
-  .label("items")
+  .label('items')
   .items(
     Joi.object({
       product: Joi.object({

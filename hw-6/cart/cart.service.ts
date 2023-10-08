@@ -1,6 +1,6 @@
-import { CartItemEntity } from "./cart.entity";
-import { CartModel } from "./cart.repository";
-import { calculateTotalPrice } from "./cart.utils";
+import { CartItemEntity } from './cart.entity';
+import { CartModel } from './cart.repository';
+import { calculateTotalPrice } from './cart.utils';
 
 export function getCart(userId: string) {
   const cart = CartModel.get(userId);

@@ -1,5 +1,5 @@
-import { randomUUID } from "node:crypto";
-import { CartEntity, CartItemEntity } from "./cart.entity";
+import { randomUUID } from 'node:crypto';
+import { CartEntity, CartItemEntity } from './cart.entity';
 
 const carts: CartEntity[] = [];
 
