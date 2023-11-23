@@ -1,0 +1,426 @@
+{
+  "namespaces": [
+    "public"
+  ],
+  "name": "public",
+  "tables": [
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "price": {
+          "name": "price",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "product",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "product_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "user",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "user_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "is_deleted": {
+          "name": "is_deleted",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "boolean"
+        }
+      },
+      "name": "cart",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "cart_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "cart_user_id_foreign": {
+          "constraintName": "cart_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.cart",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.user",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "product_id": {
+          "name": "product_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "count": {
+          "name": "count",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "cart_id": {
+          "name": "cart_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "cart_item",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "product_id"
+          ],
+          "composite": false,
+          "keyName": "cart_item_product_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "cart_item_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "cart_item_product_id_foreign": {
+          "constraintName": "cart_item_product_id_foreign",
+          "columnNames": [
+            "product_id"
+          ],
+          "localTableName": "public.cart_item",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.product",
+          "updateRule": "cascade"
+        },
+        "cart_item_cart_id_foreign": {
+          "constraintName": "cart_item_cart_id_foreign",
+          "columnNames": [
+            "cart_id"
+          ],
+          "localTableName": "public.cart_item",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.cart",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "cart_id": {
+          "name": "cart_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "items_id": {
+          "name": "items_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "payment_type": {
+          "name": "payment_type",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "payment_address": {
+          "name": "payment_address",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "payment_credit_card": {
+          "name": "payment_credit_card",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "delivery_type": {
+          "name": "delivery_type",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "delivery_address": {
+          "name": "delivery_address",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "comments": {
+          "name": "comments",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'created'",
+          "enumItems": [
+            "created",
+            "completed"
+          ],
+          "mappedType": "enum"
+        },
+        "total_price": {
+          "name": "total_price",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "order",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "cart_id"
+          ],
+          "composite": false,
+          "keyName": "order_cart_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "order_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "order_user_id_foreign": {
+          "constraintName": "order_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.order",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.user",
+          "updateRule": "cascade"
+        },
+        "order_cart_id_foreign": {
+          "constraintName": "order_cart_id_foreign",
+          "columnNames": [
+            "cart_id"
+          ],
+          "localTableName": "public.order",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.cart",
+          "updateRule": "cascade"
+        },
+        "order_items_id_foreign": {
+          "constraintName": "order_items_id_foreign",
+          "columnNames": [
+            "items_id"
+          ],
+          "localTableName": "public.order",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.cart_item",
+          "updateRule": "cascade"
+        }
+      }
+    }
+  ]
+}
