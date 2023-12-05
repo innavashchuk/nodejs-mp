@@ -1,17 +1,22 @@
 import { Router } from 'express';
+import debug from 'debug';
 import { createUser, getUserByEmail, loginUser } from './user.service';
 import { userValidation } from './user.validation';
+
+const userDebugLog = debug('user');
 
 export const AUTH_ROUTE = '/auth';
 
 const userRouter = Router();
 
 userRouter.post('/register', userValidation, async (req, res) => {
+  // Get user input
   const { name, email, password } = req.body;
 
   const oldUser = await getUserByEmail(email);
 
   if (oldUser) {
+    userDebugLog('User already exists');
     return res.status(409).send({
       data: null,
       error: { message: 'User Already Exists. Please Login' },
@@ -19,6 +24,8 @@ userRouter.post('/register', userValidation, async (req, res) => {
   }
 
   const createdUser = await createUser({ name, password, email });
+
+  userDebugLog('User created successfully' + createdUser);
 
   res.status(200).send({
     data: {
@@ -41,6 +48,8 @@ userRouter.post('/login', async (req, res) => {
   const token = await loginUser(email, password);
 
   if (token) {
+    userDebugLog(`Successfully signing in user with email: ${email}`);
+
     return res.status(200).json({
       data: {
         token,
@@ -48,6 +57,8 @@ userRouter.post('/login', async (req, res) => {
       error: null,
     });
   }
+
+  userDebugLog(`Authentication failed for user with email: ${email}`);
 
   res.status(404).send({
     data: null,

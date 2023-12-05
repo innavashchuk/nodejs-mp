@@ -1,77 +1,93 @@
 import { Router } from 'express';
-import { createCart, deleteCart, getCart, updateCart } from './cart.service';
+import debug from 'debug';
 import { createOrder } from '../order/order.service';
-import { cartValidation, checkoutValidation } from './cart.validation';
 import { isAdmin } from '../middleware/isAdmin';
+import { createCart, deleteCart, getCart, updateCart } from './cart.service';
+import { cartValidation, checkoutValidation } from './cart.validation';
+
+const checkoutDebugLog = debug('checkout');
 
 export const CART_ROUTE = '/profile/cart';
 
 const cartRouter = Router();
 
-cartRouter.post('/', async (req, res) => {
-  const userId = req.headers['x-user-id'] as string;
-  const newCartData = await createCart(userId);
+cartRouter.post('/', (req, res) => {
+  void (async () => {
+    const userId = req.headers['x-user-id'] as string;
+    const newCartData = await createCart(userId);
 
-  res.status(201).send({
-    data: newCartData,
-    error: null,
-  });
+    res.status(201).send({
+      data: newCartData,
+      error: null,
+    });
+  })();
 });
 
-cartRouter.get('/', async (req, res) => {
-  const userId = req.headers['x-user-id'] as string;
-  const cartData = await getCart(userId);
+cartRouter.get('/', (req, res) => {
+  void (async () => {
+    const userId = req.headers['x-user-id'] as string;
+    const cartData = await getCart(userId);
 
-  if (cartData === null) {
-    return res.status(404).send({ data: null, error: 'No cart found' });
-  }
+    if (cartData === null) {
+      return res.status(404).send({ data: null, error: 'No cart found' });
+    }
 
-  res.send({ data: cartData, error: null });
+    res.send({ data: cartData, error: null });
+  })();
 });
 
-cartRouter.put('/', cartValidation, async (req, res) => {
-  const userId = req.headers['x-user-id'] as string;
-  const { productId, count } = req.body;
-  const updatedCartData = await updateCart(userId, { productId, count });
+cartRouter.put('/', cartValidation, (req, res) => {
+  void (async () => {
+    const userId = req.headers['x-user-id'] as string;
+    const { productId, count } = req.body;
+    const updatedCartData = await updateCart(userId, { productId, count });
 
-  if (updatedCartData === null) {
-    return res.status(404).send({ data: null, error: 'No cart found' });
-  }
+    if (updatedCartData === null) {
+      return res.status(404).send({ data: null, error: 'No cart found' });
+    }
 
-  res.send({ data: updatedCartData, error: null });
+    res.send({ data: updatedCartData, error: null });
+  })();
 });
 
-cartRouter.delete('/', isAdmin, async (req, res) => {
-  const userId = req.headers['x-user-id'] as string;
+cartRouter.delete('/', isAdmin, (req, res) => {
+  void (async () => {
+    const userId = req.headers['x-user-id'] as string;
 
-  const deleteResult = await deleteCart(userId);
+    const deleteResult = await deleteCart(userId);
 
-  res.send({
-    data: deleteResult,
-    error: null,
-  });
+    res.send({
+      data: deleteResult,
+      error: null,
+    });
+  })();
 });
 
-cartRouter.post('/checkout', checkoutValidation, async (req, res) => {
-  const userId = req.headers['x-user-id'] as string;
-  const cartData = await getCart(userId);
-  const { payment, delivery, comments } = req.body;
+cartRouter.post('/checkout', checkoutValidation, (req, res) => {
+  void (async () => {
+    const userId = req.headers['x-user-id'] as string;
+    const cartData = await getCart(userId);
+    const { payment, delivery, comments } = req.body;
 
-  if (cartData === null) {
-    return res.status(404).send({ data: null, error: 'No cart found' });
-  }
+    if (cartData === null) {
+      checkoutDebugLog('No cart found');
+      return res.status(404).send({ data: null, error: 'No cart found' });
+    }
 
-  const { cart } = cartData;
+    const { cart } = cartData;
 
-  const orderData = await createOrder(userId, {
-    cart: cart.id,
-    items: cart.items,
-    payment,
-    delivery,
-    comments,
-  });
+    const orderData = await createOrder(userId, {
+      cart: cart.id,
+      items: cart.items,
+      payment,
+      delivery,
+      comments,
+    });
 
-  res.send({ data: orderData, error: null });
+    checkoutDebugLog('Checkout completed with\n' + String(orderData));
+
+    res.send({ data: orderData, error: null });
+  })();
 });
 
 export { cartRouter };

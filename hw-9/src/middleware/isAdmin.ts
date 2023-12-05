@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express';
+import { type NextFunction, type Response } from 'express';
 
 export function isAdmin(req: any, res: Response, next: NextFunction) {
   const currentUser = req.user;

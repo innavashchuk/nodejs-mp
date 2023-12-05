@@ -1,5 +1,3 @@
-import { Types } from 'mongoose';
-
-export function validateId(id: unknown) {
-  return typeof id === 'string' && Types.ObjectId.isValid(id);
+export function validateId(id: unknown): boolean {
+  return typeof id === 'string';
 }

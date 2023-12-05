@@ -1,13 +1,13 @@
 import { Schema, model } from 'mongoose';
 
-import { CartItemEntity } from '../cart/cart.entity';
+import { type CartItemEntity } from '../cart/cart.entity';
 
 type OrderStatus = 'created' | 'completed';
 
 export interface OrderEntity {
   user: Schema.Types.ObjectId;
   cart: Schema.Types.ObjectId;
-  items: CartItemEntity[]; 
+  items: CartItemEntity[]; // products from CartEntity
   payment: {
     type: string;
     address?: any;

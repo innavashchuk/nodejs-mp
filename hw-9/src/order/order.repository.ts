@@ -1,4 +1,4 @@
-import { Order, OrderCreateEntity } from './order.entity';
+import { Order, type OrderCreateEntity } from './order.entity';
 import { calculateTotalPrice } from '../cart/cart.utils';
 
 export const OrderModel = {

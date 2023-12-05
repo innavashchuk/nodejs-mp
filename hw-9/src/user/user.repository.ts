@@ -1,5 +1,5 @@
 import { validateId } from '../utils';
-import { User, UserCreateInput } from './user.entity';
+import { User, type UserCreateInput } from './user.entity';
 
 export const UserModel = {
   async getById(id?: string | string[]) {

@@ -35,7 +35,7 @@ export const CartModel = {
       { $push: { items: item } }
     ).exec();
 
-    return Cart.findById(cart?.id).populate({
+    return await Cart.findById(cart?.id).populate({
       path: 'items',
       populate: { path: 'product' },
     });

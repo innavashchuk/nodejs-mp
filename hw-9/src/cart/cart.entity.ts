@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { ProductEntity } from '../product/product.entity';
-import { UserEntity } from '../user/user.entity';
+import { type ProductEntity } from '../product/product.entity';
+import { type UserEntity } from '../user/user.entity';
 
 export interface CartItemEntity {
   product: ProductEntity;

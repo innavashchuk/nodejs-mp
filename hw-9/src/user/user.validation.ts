@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import Joi from 'joi';
 
 const userBodySchema = Joi.object({
@@ -11,10 +11,10 @@ export function userValidation(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): Response<any, Record<string, any>> | undefined {
   const result = userBodySchema.validate(req.body, { abortEarly: false });
 
-  if (result.error) {
+  if (result.error != null) {
     return res.status(400).send({
       data: null,
       error: result.error,

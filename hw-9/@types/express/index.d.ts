@@ -1,4 +1,4 @@
-import { UserEntity } from '../../src/user/user.entity';
+import { type UserEntity } from '../../src/user/user.entity';
 
 export {};
 

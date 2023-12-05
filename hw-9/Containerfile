@@ -1,0 +1,16 @@
+FROM node:18.18-bullseye-slim
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+ENV PORT 3005
+ENV BASE_URL /api
+ENV TOKEN_KEY d5646b1f-eafc-407a-ad1b-a4b71fbad39b
+ENV MONGO_URL mongodb://node-gmp-auth-db:27017
+ENV MONGO_DB node_gmp_auth
+ENV MONGO_USER node_gmp_auth
+ENV MONGO_PASS password123
+ENV NODE_ENV production
+WORKDIR /usr/src/app
+COPY --chown=node:node ./dist .
+COPY --chown=node:node package*.json .
+RUN npm ci --only=production
+USER node
+CMD ["dumb-init", "node", "./src/index.js"]

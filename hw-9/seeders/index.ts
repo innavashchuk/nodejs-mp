@@ -1,14 +1,18 @@
+import 'dotenv/config';
+
 import { connect, disconnect } from 'mongoose';
 import { seedProducts } from './seedProducts';
 import { seedUsers } from './seedUsers';
 
-connect('mongodb://127.0.0.1:27017/node_gmp_auth', {
+const connectionUrl = `${process.env.MONGO_URL}/${process.env.MONGO_DB}`;
+
+connect(connectionUrl, {
   authSource: 'admin',
-  user: 'node_gmp_auth',
-  pass: 'password123',
+  user: process.env.MONGO_USER,
+  pass: process.env.MONGO_PASS,
 })
   .then(async () => {
-    console.log('connected to db in development environment');
+    console.log(`connected to db in ${process.env.NODE_ENV} environment`);
     console.log('running seeds');
     await Promise.all(
       [seedProducts, seedUsers].map(async (seeder) => {
