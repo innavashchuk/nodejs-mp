@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+    node-gmp-auth-db:
+        ports:
+            - '27017:27017'
+        restart: always
+        logging:
+            options:
+                max-size: 1g
+        environment:
+            - "MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}"
+            - "MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}"
+            - "MONGO_INITDB_DATABASE=${MONGO_DB}"
+        image: mongo
+    node-gmp-app:
+        build: .
+        ports:
+            - '3005:3005'
